@@ -24,11 +24,6 @@ Also, si hay ganas, se puede dividir en distintos archivos
 Also, se puede agregar herencia/polimorfismo (en vez de un switch enorme?)
 """
 
-
-app = Flask(__name__)
-api = Api(app)
-
-
 class Chat(Resource):
     # Fede stuff, dont dar bola
     def post(self):
@@ -96,11 +91,16 @@ class Subscription(Resource):
         subscription_name = body.get("subscription_name")
         return {}
 
+# PushClient().publish(PushMessage(to='ExponentPushToken[EnXw1vGCBYEkgRnuQa-B4o]', body='hello'))
 
-api.add_resource(User, "/user")
-api.add_resource(Subscription, "/subscription")
-api.add_resource(Notification, "/notification")
-api.add_resource(Chat, "/user")
+def create_app():
 
-if __name__ == "__main__":
-    app.run(debug=True, host="0.0.0.0")
+    app = Flask(__name__)
+
+    api = Api(app)
+    api.add_resource(User, "/user")
+    api.add_resource(Subscription, "/subscription")
+    api.add_resource(Notification, "/notification")
+    api.add_resource(Chat, "/user")
+
+    return app

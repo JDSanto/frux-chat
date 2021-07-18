@@ -1,0 +1,14 @@
+version: '3.7'
+services:
+    frux_chat_api:
+      container_name: frux_chat_api
+      build:
+        context: ../
+        dockerfile: Dockerfile
+      ports:
+        - "5000:5000"
+      volumes:
+          - ../frux_chat:/app/frux_chat
+      environment:
+        - ENVIRONMENT=develop
+      entrypoint: bash /app/docker-compose/api-entrypoint.sh
