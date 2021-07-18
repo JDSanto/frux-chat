@@ -1,3 +1,18 @@
+from exponent_server_sdk import (
+    DeviceNotRegisteredError,
+    PushClient,
+    PushMessage,
+    PushServerError,
+    PushTicketError,
+)
+
+
+def notify_device(token, message):
+    PushClient().publish(PushMessage(to=token, body=message))
+
+
+# TODO: usar todo esto
+
 def new_seeder(seeder, project):
     return f"""{seeder} has started funding {project}!"""
 

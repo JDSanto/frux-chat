@@ -1,7 +1,21 @@
 version: '3.7'
 services:
+
+    frux_chat_mongodb:
+      container_name: frux_chat_mongodb
+      image: mongo:4.4.6
+      environment:
+        - MONGO_INITDB_ROOT_USERNAME=root
+        - MONGO_INITDB_ROOT_PASSWORD=password
+      ports:
+        - 27017:27017
+      volumes:
+        - frux_chat_mongodb_volume:/data/db
+
     frux_chat_api:
       container_name: frux_chat_api
+      depends_on:
+        - frux_chat_mongodb
       build:
         context: ../
         dockerfile: Dockerfile
@@ -11,4 +25,10 @@ services:
           - ../frux_chat:/app/frux_chat
       environment:
         - ENVIRONMENT=develop
+        - DATABASE_URL=mongodb://root:password@frux_chat_mongodb:27017
+        - DATABASE_NAME=frux_chat
       entrypoint: bash /app/docker-compose/api-entrypoint.sh
+
+
+volumes:
+  frux_chat_mongodb_volume:

@@ -1,13 +1,12 @@
-from exponent_server_sdk import (
-    DeviceNotRegisteredError,
-    PushClient,
-    PushMessage,
-    PushServerError,
-    PushTicketError,
-)
 from flask import Flask, request
 from flask_restful import Api, Resource
+
 from requests.exceptions import ConnectionError, HTTPError
+
+from flask_restful_swagger import swagger
+
+from frux_chat.resources.user import User
+from frux_chat.resources.notification import Notification
 
 """
 pip install flask
@@ -28,41 +27,6 @@ class Chat(Resource):
     # Fede stuff, dont dar bola
     def post(self):
         pass
-
-
-class Notification(Resource):
-    # Recibe el proyecto y el nombre de la notificacion a enviar y los parametros de esa notificacion (nombres de usuarios, nombres de proyecto, etc)
-    # Recorre todas las suscripciones de ese proyecto y para las suscripciones correspondientes a la notif recibida, las envia
-    # Tambien guarda la notificacion en la db, para despues poder darsela al usuario y mostrarla en la app en si
-
-    # Hay distintos tipos de notificaciones, y algunas tienen subtipos (donde solo cambia el body segun el receptor)
-    # Los bodys estan en notifications.py
-    # NewSeederNotification -> X fundeo tu proyecto
-    # NewStageNotification_noncreator -> El proyecto entro en tal stage
-    # NewStageNotification_creator -> El veedor te dio los funds para tal stage
-    # NewSeer_creator -> Se asigno un veedor a tu proyecto
-    # NewSeer_seer -> Se te asigno un proyecto para que seas el seer
-    # ChangeStateNotification -> El proyecto entro en funding, el proyecto entro en inprogress, el proyecto se completo
-
-    # Como se envia una notif?
-    # PushClient().publish(PushMessage(to=token, body=message))
-
-    def post(self):
-        body = request.get_json()
-        project_id = body.get("project_id")
-        notification_name = body.get("notification_name")
-        notification_data = body.get("notification_data")
-        return {}
-
-
-class User(Resource):
-    # Recibe user_id y token -> Lo guarda en la db
-    # Also se fija si el token es distinto y lo actualiza en la db (o lo agrega como extra? pensar en multiples dispositivos?)
-    def post(self):
-        body = request.get_json()
-        user_id = body.get("user_id")
-        token = body.get("token")
-        return {}
 
 
 class Subscription(Resource):
@@ -97,10 +61,18 @@ def create_app():
 
     app = Flask(__name__)
 
-    api = Api(app)
-    api.add_resource(User, "/user")
+    api = swagger.docs(
+        Api(app),
+        apiVersion="0.1",
+        basePath="http://localhost:5000",
+        resourcePath="/",
+        produces=["application/json", "text/html"],
+        api_spec_url="/api/spec",
+        description="frux-chat API",
+    )
+    api.add_resource(User, "/user/<int:id>", endpoint="user")
     api.add_resource(Subscription, "/subscription")
     api.add_resource(Notification, "/notification")
-    api.add_resource(Chat, "/user")
+    api.add_resource(Chat, "/chat")
 
     return app
