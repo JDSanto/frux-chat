@@ -18,4 +18,4 @@ RUN poetry install
 RUN poetry run pip install gunicorn
 
 # Use heroku entrypoint
-CMD ["/app/heroku/heroku-entrypoint.sh"]
+CMD ["bash", "/app/heroku/heroku-entrypoint.sh"]
