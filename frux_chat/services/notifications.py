@@ -12,6 +12,7 @@ def notify_device(token, message):
 
 
 # TODO: usar todo esto
+# TODO: dividir en titulo/descripcion
 
 def new_seeder(seeder, project):
     return f"""{seeder} has started funding {project}!"""
@@ -25,6 +26,11 @@ def change_state(project, stage):
     if stage == "COMPLETE":
         return f"""{project} has finished development!"""
 
+def finish_stage_non_creator(project, stage_number):
+    return f"""{project} has finished developing their Stage #{stage_number}!"""
+
+def finish_stage_seer(project, stage_number):
+    return f"""{project} has finished developing their Stage #{stage_number}! Check if everything is in place!"""
 
 def new_stage_non_creator(project, stage_number):
     return f"""{project} has started developing their Stage #{stage_number}!"""
