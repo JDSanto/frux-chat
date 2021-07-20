@@ -18,6 +18,8 @@ class Notification(Resource):
     # NewSeederNotification -> X fundeo tu proyecto
     # NewStageNotification_noncreator -> El proyecto entro en tal stage
     # NewStageNotification_creator -> El veedor te dio los funds para tal stage
+    # FinishStageNotification_noncreator -> El proyecto termino tal stage
+    # FinishStageNotification_seeder -> El creador marco como completado el desarrollo de un stage
     # NewSeer_creator -> Se asigno un veedor a tu proyecto
     # NewSeer_seer -> Se te asigno un proyecto para que seas el seer
     # ChangeStateNotification -> El proyecto entro en funding, el proyecto entro en inprogress, el proyecto se completo
