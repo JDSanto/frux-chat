@@ -42,10 +42,10 @@ class Subscription(Resource):
     #   - Que notificaciones recibe? ChangeStateNotification
     # ProjectSeer
     #   - Quien se suscribe? el veedor de un proyecto
-    #   - Que notificaciones recibe? NewSeederNotification, NewSeer_seer, ChangeStateNotification
+    #   - Que notificaciones recibe? NewSeederNotification, NewSeer_seer, ChangeStateNotification, FinishStageNotification_seeder
     # ProjectSeeder
     #   - Quien se suscribe? los que invirtieron en el proyecto
-    #   - Que notificaciones recibe? NewStageNotification_noncreator
+    #   - Que notificaciones recibe? NewStageNotification_noncreator, FinishStageNotification_noncreator
     # El chat NO se maneja por suscripciones
 
     def post(self):
