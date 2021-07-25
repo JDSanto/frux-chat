@@ -15,14 +15,33 @@ class Notification(Resource):
 
     # Hay distintos tipos de notificaciones, y algunas tienen subtipos (donde solo cambia el body segun el receptor)
     # Los bodys estan en notifications.py
+
+    # app-server -> frux-chat
     # NewSeederNotification -> X fundeo tu proyecto
-    # NewStageNotification_noncreator -> El proyecto entro en tal stage
+
+    # app-server -> frux-chat
+    # NewStageNotification_noncreator -> El proyecto entro en tal stage (similar a la de abajo)
+
+    # app-server -> frux-chat
     # NewStageNotification_creator -> El veedor te dio los funds para tal stage
+
+    # deprecated old etc
     # FinishStageNotification_noncreator -> El proyecto termino tal stage
+
+    # deprecated old etc
     # FinishStageNotification_seeder -> El creador marco como completado el desarrollo de un stage
+
+    # app-server -> frux-chat
     # NewSeer_creator -> Se asigno un veedor a tu proyecto
+
+    # app-server -> frux-chat
     # NewSeer_seer -> Se te asigno un proyecto para que seas el seer
+
+    # app-server -> frux-chat
     # ChangeStateNotification -> El proyecto entro en funding, el proyecto entro en inprogress, el proyecto se completo
+
+    # mobile -> frux-chat
+    # 
 
     # Como se envia una notif?
     # PushClient().publish(PushMessage(to=token, body=message))

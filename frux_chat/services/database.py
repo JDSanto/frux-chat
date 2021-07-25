@@ -1,4 +1,5 @@
 import os
+import datetime
 from pymongo import MongoClient
 
 class Database:
@@ -11,13 +12,33 @@ class Database:
         return self.db.users
 
     def insert_user(self, id, token):
-        return self.db.users.insert_one({
-            '_id': id,
+        value = {
             'token': token
-        })
+        }
+        self.db.users.update(
+           {'_id': id},
+           value,
+           upsert=True
+        )
+        return value
 
     def get_user(self, id):
         return self.db.users.find_one({'_id': id})
+
+
+    def insert_notification(self, user_id, title, body):
+        value = {
+            'user_id': user_id,
+            'title': title,
+            'body': body,
+            'created_at': datetime.datetime.now()
+        }
+        self.db.notifications.insert(value)
+        return value
+
+
+    def get_notifications(self, user_id):
+        return list(self.db.notifications.find({'user_id': user_id}))
 
 
 database = Database()
