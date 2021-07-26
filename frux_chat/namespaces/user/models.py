@@ -1,4 +1,3 @@
-
 from flask_restx import Model, fields, reqparse
 
 user_model = Model(
@@ -23,12 +22,6 @@ notification_model = Model(
     }
 )
 
-notifications_model = Model(
-    "User notifications model",
-    {
-        "notifications": fields.List(fields.Nested(notification_model), description="The user's notifications")
-    }
-)
 
 notification_parser = reqparse.RequestParser()
 notification_parser.add_argument(

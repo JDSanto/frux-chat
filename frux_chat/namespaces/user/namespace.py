@@ -1,14 +1,14 @@
 """User namespace module."""
 
-from flask_restx import Namespace, Resource
+from flask_restx import Namespace, Resource, fields
 
 from frux_chat.services.database import database
+from frux_chat.services import notifications
 from .models import (
     user_model,
     user_parser,
     notification_parser,
-    notification_model,
-    notifications_model
+    notification_model
 )
 
 ns = Namespace("User", description="User operations", )
@@ -46,18 +46,21 @@ class NotificationsResource(Resource):
     @ns.marshal_with(notification_model)
     @ns.expect(notification_parser)
     def post(self, id):
-        """Add a new notification for the user"""
+        """Send new notification to the user"""
         data = ns.payload
         notification = database.insert_notification(
             int(id),
             data['title'],
             data['body']
         )
+        user = database.get_user(int(id))
+        notifications.notify_device(user['token'], data['title'], data['body'])
         return notification
 
     @ns.doc('get_user_notifications')
     @ns.marshal_with(notification_model)
+    # @ns.response(200, "successfully fetched user notifications", fields.List(fields.Nested(notification_model)))
     def get(self, id):
         """Get all the user's notifications"""
-        notifications = database.get_notifications(int(id))
-        return notifications
+        user_notifications = database.get_notifications(int(id))
+        return user_notifications
