@@ -3,7 +3,11 @@ import logging
 
 from flask_restx import Api
 
-from frux_chat.namespaces import subscription_namespace, user_namespace
+from frux_chat.namespaces import (
+    default_namespace,
+    subscription_namespace,
+    user_namespace,
+)
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
@@ -14,6 +18,7 @@ api = Api(
 
 api.add_namespace(user_namespace, path='/user')
 api.add_namespace(subscription_namespace, path='/subscription')
+api.add_namespace(default_namespace, path='/health')
 
 
 @api.errorhandler
