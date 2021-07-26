@@ -2,9 +2,7 @@ from flask_restx import Model, fields, reqparse
 
 user_model = Model(
     "User model",
-    {
-        "token": fields.String(required=True, description="The Expo session token")
-    }
+    {"token": fields.String(required=True, description="The Expo session token")},
 )
 
 user_parser = reqparse.RequestParser()
@@ -15,11 +13,13 @@ user_parser.add_argument(
 notification_model = Model(
     "Notification model",
     {
-        "created_at": fields.DateTime(required=True, description="The notification creation date"),
+        "created_at": fields.DateTime(
+            required=True, description="The notification creation date"
+        ),
         "user_id": fields.Integer(required=True, description="The user id"),
         "title": fields.String(required=True, description="The notification title"),
-        "body": fields.String(required=True, description="The notification body")
-    }
+        "body": fields.String(required=True, description="The notification body"),
+    },
 )
 
 

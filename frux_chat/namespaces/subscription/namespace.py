@@ -2,20 +2,20 @@
 
 from flask_restx import Namespace, Resource
 
-from .models import notification_parser
-from frux_chat.services.database import database
 from frux_chat.services import notifications
+from frux_chat.services.database import database
 
-ns = Namespace("Subscription", description="Subscription operations", )
+from .models import notification_parser
+
+ns = Namespace("Subscription", description="Subscription operations",)
 
 
 @ns.route('/<project_id>/<tag>/user/<user_id>', endpoint='subscription_user')
-@ns.doc(params={
-    'project_id': 'Project ID',
-    'tag': 'Subscription Tag',
-    'user_id': 'User ID'
-})
+@ns.doc(
+    params={'project_id': 'Project ID', 'tag': 'Subscription Tag', 'user_id': 'User ID'}
+)
 class SubscriptionResource(Resource):
+    """Subscription resource"""
 
     @ns.doc('add_subscription')
     def post(self, project_id, tag, user_id):
@@ -33,11 +33,9 @@ class SubscriptionResource(Resource):
 
 
 @ns.route('/<project_id>/<tag>', endpoint='subscription')
-@ns.doc(params={
-    'project_id': 'Project ID',
-    'tag': 'Subscription Tag'
-})
+@ns.doc(params={'project_id': 'Project ID', 'tag': 'Subscription Tag'})
 class SubscriptionNotifierResource(Resource):
+    """Subscription notifier resource"""
 
     @ns.doc('subscription_notifier')
     @ns.expect(notification_parser)

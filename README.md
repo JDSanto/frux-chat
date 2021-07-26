@@ -48,6 +48,15 @@ DATABASE_NAME=frux_chat
 
 4. Run `FLASK_APP=$(pwd)/frux_chat/main.py poetry run flask run`
 
+
+### pre-commit hooks
+
+You can enable linter pre-commit hooks by running:
+
+```
+poetry run pre-commit install
+```
+
 ## Docs
 
 Currently in [`/api/spec.html`](https://frux-chat.herokuapp.com/api/spec.html)
