@@ -20,7 +20,7 @@ services:
         context: ../
         dockerfile: Dockerfile
       ports:
-        - "5000:5000"
+        - "5500:5500"
       volumes:
           - ../frux_chat:/app/frux_chat
       environment:
