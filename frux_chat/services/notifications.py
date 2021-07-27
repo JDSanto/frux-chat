@@ -134,6 +134,42 @@ TAG_MAPPER = {
 }
 
 
+# ProjectCreator
+#   - Quien se suscribe? el creador de un proyecto al crearlo
+#   - Que notificaciones recibe? NewSeederNotification, NewStageNotification_creator, NewSeer_creator, ChangeStateNotification,
+# ProjectWatcher
+#   - Quien se suscribe? los que dieron like
+#   - Que notificaciones recibe? ChangeStateNotification,
+# ProjectSeer
+#   - Quien se suscribe? el veedor de un proyecto
+#   - Que notificaciones recibe? NewSeederNotification, NewSeer_seer, ChangeStateNotification, FinishStageNotification_seeder,
+# ProjectSeeder
+#   - Quien se suscribe? los que invirtieron en el proyecto
+#   - Que notificaciones recibe? NewStageNotification_noncreator, FinishStageNotification_noncreator,
+# El chat NO se maneja por suscripciones
+
+
+ROLE_MAPPER = {
+    'ProjectCreator': [
+        'NewSeederNotification',
+        'NewStageNotification_creator',
+        'NewSeer_creator',
+        'ChangeStateNotification',
+    ],
+    'ProjectWatcher': ['ChangeStateNotification'],
+    'ProjectSeer': [
+        'NewSeederNotification',
+        'NewSeer_seer',
+        'ChangeStateNotification',
+        'FinishStageNotification_seeder',
+    ],
+    'ProjectSeeder': [
+        'NewStageNotification_noncreator',
+        'FinishStageNotification_noncreator',
+    ],
+}
+
+
 # Chats -> No tiene que ver con suscripcion
 def new_question(name):
     return f"""{name} has a new question for you!"""

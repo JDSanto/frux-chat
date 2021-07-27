@@ -10,25 +10,33 @@ from .models import notification_parser
 ns = Namespace("Subscription", description="Subscription operations",)
 
 
-@ns.route('/<project_id>/<tag>/user/<user_id>', endpoint='subscription_user')
+@ns.route('/<project_id>/<role>/user/<user_id>', endpoint='subscription_user')
 @ns.doc(
-    params={'project_id': 'Project ID', 'tag': 'Subscription Tag', 'user_id': 'User ID'}
+    params={
+        'project_id': 'Project ID',
+        'role': 'Subscription Role',
+        'user_id': 'User ID',
+    }
 )
 class SubscriptionResource(Resource):
     """Subscription resource"""
 
     @ns.doc('add_subscription')
-    def post(self, project_id, tag, user_id):
-        """Subscribe a user to the given tag and project"""
-        tag = notifications.set_tag_and_project(tag, project_id)
-        user = database.insert_subscription(tag, int(user_id))
+    def post(self, project_id, role, user_id):
+        """Subscribe a user to the given role and project ()"""
+        user = None
+        for tag in notifications.ROLE_MAPPER.get(role, []):
+            tag = notifications.set_tag_and_project(tag, project_id)
+            user = database.insert_subscription(tag, int(user_id))
         return user
 
     @ns.doc('remove_subscription')
-    def delete(self, project_id, tag, user_id):
-        """Unsubscribe a user to the given tag and project"""
-        tag = notifications.set_tag_and_project(tag, project_id)
-        user = database.remove_subscription(tag, int(user_id))
+    def delete(self, project_id, role, user_id):
+        """Unsubscribe a user to the given role and project"""
+        user = None
+        for tag in notifications.ROLE_MAPPER.get(role, []):
+            tag = notifications.set_tag_and_project(tag, project_id)
+            user = database.remove_subscription(tag, int(user_id))
         return user
 
 
