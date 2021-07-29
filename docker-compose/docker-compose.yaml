@@ -27,6 +27,7 @@ services:
         - ENVIRONMENT=develop
         - DATABASE_URL=mongodb://root:password@frux_chat_mongodb:27017
         - DATABASE_NAME=frux_chat
+        - API_KEY=1234567890
       entrypoint: bash /app/docker-compose/api-entrypoint.sh
 
 
