@@ -34,7 +34,9 @@ class ChatResource(Resource):
 
         title = "Someone asked you a question!"
         if (is_question): title = "Your question was replied!"
-        notifications.notify_device(replyto_user['token'], title, body)
+
+        notification_data = {'project_id':project_id}
+        notifications.notify_device(replyto_user['token'], title, body, notification_data)
         # Help guardando esto en la db
         # database.insert_notification(user['_id'], title, body)
         return {'status': 'ok'}
