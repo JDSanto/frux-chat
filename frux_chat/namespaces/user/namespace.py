@@ -3,6 +3,7 @@
 from flask_restx import Namespace, Resource
 
 from frux_chat.services import notifications
+from frux_chat.services.authorization import requires_api_key
 from frux_chat.services.database import database
 
 from .models import notification_model, notification_parser, user_model, user_parser
@@ -40,9 +41,11 @@ class UserResource(Resource):
 class NotificationsResource(Resource):
     """Notifications resource"""
 
-    @ns.doc('post_user_notification')
+    @ns.doc('post_user_notification', security='apikey')
+    @ns.response(401, "Unauthorized")
     @ns.marshal_with(notification_model)
     @ns.expect(notification_parser)
+    @requires_api_key
     def post(self, user_id):
         """Send new notification to the user"""
         data = ns.payload
@@ -55,7 +58,6 @@ class NotificationsResource(Resource):
 
     @ns.doc('get_user_notifications')
     @ns.marshal_with(notification_model)
-    # @ns.response(200, "successfully fetched user notifications", fields.List(fields.Nested(notification_model)))
     def get(self, user_id):
         """Get all the user's notifications"""
         user_notifications = database.get_notifications(int(user_id))

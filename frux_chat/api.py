@@ -12,8 +12,13 @@ from frux_chat.namespaces import (
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
 
+authorizations = {'apikey': {'type': 'apiKey', 'in': 'header', 'name': 'X-API-KEY'}}
+
 api = Api(
-    validate=True, title='Frux Chat API', description='Frux chat and notification API'
+    validate=True,
+    title='Frux Chat API',
+    description='Frux chat and notification API',
+    authorizations=authorizations,
 )
 
 api.add_namespace(user_namespace, path='/user')
