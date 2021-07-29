@@ -19,6 +19,8 @@ notification_model = Model(
         "user_id": fields.Integer(required=True, description="The user id"),
         "title": fields.String(required=True, description="The notification title"),
         "body": fields.String(required=True, description="The notification body"),
+        "project_id": fields.String(required=True, description="The project the notification relates to"),
+        "chat": fields.Boolean(required=False, description="True if the notification is a private message"),
     },
 )
 

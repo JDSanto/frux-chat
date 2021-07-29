@@ -30,7 +30,7 @@ def notify_tag(tag, project_id, params):
     notification_data = {'project_id':project_id}
     for user in users:
         notify_device(user['token'], title, body, notification_data)
-        database.insert_notification(user['_id'], title, body)
+        database.insert_notification(user['_id'], title, body, project_id)
 
 
 # TODO: usar todo esto

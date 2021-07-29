@@ -27,16 +27,14 @@ class ChatResource(Resource):
     def post(self, project_id):
         """Ask or reply to a question"""
         data = ns.payload
-        creator = database.get_user(data['user_id'])
         replyto_user = database.get_user(data['replyto_id'])
         is_question = data['question']
         body = data['body']
 
-        title = "Someone asked you a question!"
-        if (is_question): title = "Your question was replied!"
+        title = "Your question was replied!"
+        if (is_question): title = "Someone asked you a question!"
 
-        notification_data = {'project_id':project_id}
+        notification_data = {'project_id':project_id, 'chat': True}
+        database.insert_notification(data['replyto_id'], title, body, project_id, True)
         notifications.notify_device(replyto_user['token'], title, body, notification_data)
-        # Help guardando esto en la db
-        # database.insert_notification(user['_id'], title, body)
         return {'status': 'ok'}

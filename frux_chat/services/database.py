@@ -26,7 +26,7 @@ class Database:
     def get_user(self, user_id):
         return self.db.users.find_one({'_id': user_id})
 
-    def insert_notification(self, user_id, title, body):
+    def insert_notification(self, user_id, title, body, project_id = 0, chat = False):
         '''
         Inserts a notification for the given user, with the current timestamp
         '''
@@ -34,6 +34,8 @@ class Database:
             'user_id': user_id,
             'title': title,
             'body': body,
+            'project_id': project_id,
+            'chat': chat,
             'created_at': datetime.datetime.now(),
         }
         self.db.notifications.insert(value)
