@@ -7,6 +7,7 @@ from frux_chat.namespaces import (
     default_namespace,
     subscription_namespace,
     user_namespace,
+    chat_namespace,
 )
 
 logger = logging.getLogger(__name__)
@@ -23,6 +24,7 @@ api = Api(
 
 api.add_namespace(user_namespace, path='/user')
 api.add_namespace(subscription_namespace, path='/subscription')
+api.add_namespace(chat_namespace, path='/chat')
 api.add_namespace(default_namespace, path='/health')
 
 
