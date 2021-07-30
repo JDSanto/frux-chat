@@ -20,7 +20,8 @@ notification_model = Model(
         "title": fields.String(required=True, description="The notification title"),
         "body": fields.String(required=True, description="The notification body"),
         "project_id": fields.String(required=True, description="The project the notification relates to"),
-        "chat": fields.Boolean(required=False, description="True if the notification is a private message"),
+        "chat_id": fields.String(required=False, description="The conversation id of the notification (question + reply). If the notification is not a chat, this is None"),
+        "commenter_id": fields.String(required=False, description="The id of the commenter. If the notification is not a chat, this is None"),
     },
 )
 

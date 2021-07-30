@@ -53,7 +53,7 @@ class NotificationsResource(Resource):
             int(user_id), data['title'], data['body']
         )
         user = database.get_user(int(user_id))
-        notifications.notify_device(user['token'], data['title'], data['body'])
+        if user: notifications.notify_device(user['token'], data['title'], data['body'])
         return notification
 
     @ns.doc('get_user_notifications')
