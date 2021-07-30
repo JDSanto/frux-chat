@@ -23,9 +23,7 @@ ns = Namespace("Chat", description="Private chat operations",)
 class ChatResource(Resource):
     """Chat resource"""
 
-    # @ns.doc('chat', security='apikey')
-    # @ns.response(401, "Unauthorized")
-    # @requires_api_key
+    @ns.doc('chat', security='apikey')
     @ns.expect(chat_parser)
     def post(self, project_id):
         """Ask or reply to a question"""
@@ -44,7 +42,6 @@ class ChatResource(Resource):
         return {'status': 'ok'}
 
 
-    # @ns.response(401, "Unauthorized")
     @ns.doc('get_chat', security='apikey')
     @ns.marshal_with(notification_model)
     def get(self, project_id):

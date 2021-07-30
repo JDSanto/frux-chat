@@ -33,9 +33,13 @@ def notify_tag(tag, project_id, params):
         database.insert_notification(user['_id'], title, body, project_id)
 
 
-# TODO: usar todo esto
-# TODO: dividir en titulo/descripcion
-
+# Notifications Specccc
+# NewSeederNotification -> X fundeo tu proyecto
+# NewStageNotification_noncreator -> El proyecto entro en tal stage (similar a la de abajo)
+# NewStageNotification_creator -> El veedor te dio los funds para tal stage
+# NewSeer_creator -> Se asigno un veedor a tu proyecto
+# NewSeer_seer -> Se te asigno un proyecto para que seas el seer
+# ChangeStateNotification -> El proyecto entro en funding, el proyecto entro en inprogress, el proyecto se completo
 
 def new_seeder(data):
     project = data['project']
@@ -103,28 +107,6 @@ def new_seer_seer(data):
     return ('Project assigned!', f'You\'ve been assigned to supervise {project}!')
 
 
-# app-server -> frux-chat
-# NewSeederNotification -> X fundeo tu proyecto
-
-# app-server -> frux-chat
-# NewStageNotification_noncreator -> El proyecto entro en tal stage (similar a la de abajo)
-
-# app-server -> frux-chat
-# NewStageNotification_creator -> El veedor te dio los funds para tal stage
-
-# app-server -> frux-chat
-# NewSeer_creator -> Se asigno un veedor a tu proyecto
-
-# app-server -> frux-chat
-# NewSeer_seer -> Se te asigno un proyecto para que seas el seer
-
-# app-server -> frux-chat
-# ChangeStateNotification -> El proyecto entro en funding, el proyecto entro en inprogress, el proyecto se completo
-
-# Como se envia una notif?
-# PushClient().publish(PushMessage(to=token, body=message))
-
-
 TAG_MAPPER = {
     'NewSeederNotification': new_seeder,
     'NewStageNotification_noncreator': new_stage_non_creator,
@@ -135,6 +117,7 @@ TAG_MAPPER = {
 }
 
 
+# Role Specccc
 # ProjectCreator
 #   - Quien se suscribe? el creador de un proyecto al crearlo
 #   - Que notificaciones recibe? NewSeederNotification, NewStageNotification_creator, NewSeer_creator, ChangeStateNotification,
@@ -169,12 +152,3 @@ ROLE_MAPPER = {
         'FinishStageNotification_noncreator',
     ],
 }
-
-
-# Chats -> No tiene que ver con suscripcion
-def new_question(name):
-    return f"""{name} has a new question for you!"""
-
-
-def new_reply(name):
-    return f"""{name} has replied to your question!"""
