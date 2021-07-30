@@ -1,3 +1,5 @@
+import logging
+
 from exponent_server_sdk import (
     DeviceNotRegisteredError,
     PushClient,
@@ -8,10 +10,17 @@ from exponent_server_sdk import (
 
 from frux_chat.services.database import database
 
+logger = logging.getLogger(__name__)
+handler = logging.StreamHandler()
+handler.setFormatter(
+    logging.Formatter('[%(asctime)s] [%(levelname)s] %(module)s: "%(message)s"')
+)
+logger.addHandler(handler)
+logger.setLevel(logging.INFO)
+
 
 def notify_device(token, title='', body='New event!', notification_data=None):
-    # TODO: Logging
-    print(f'NEW MESSAGE -- {token} -- {title} -- {body}')
+    logger.info('Sending new notification: -- %s -- %s -- %s', token, title, body)
     if not notification_data:
         notification_data = {}
     try:
