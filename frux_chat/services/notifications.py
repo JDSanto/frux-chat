@@ -65,7 +65,7 @@ def new_stage_non_creator(data):
     stage_number = data['stage_number']
     return (
         'Stage finished!',
-        f'{project} has started developing their Stage #{stage_number}!',
+        f'{project} has started developing their Stage {stage_number}!',
     )
 
 
@@ -75,7 +75,7 @@ def new_stage_creator(data):
     name = data['username']
     return (
         'Stage funds released!',
-        f'{name} has released the funds for Stage #{stage_number} of {project}!',
+        f'{name} has released the funds for Stage {stage_number} of {project}!',
     )
 
 
