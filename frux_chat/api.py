@@ -4,10 +4,10 @@ import logging
 from flask_restx import Api
 
 from frux_chat.namespaces import (
+    chat_namespace,
     default_namespace,
     subscription_namespace,
     user_namespace,
-    chat_namespace,
 )
 
 logger = logging.getLogger(__name__)

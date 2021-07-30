@@ -19,9 +19,17 @@ notification_model = Model(
         "user_id": fields.Integer(required=True, description="The user id"),
         "title": fields.String(required=True, description="The notification title"),
         "body": fields.String(required=True, description="The notification body"),
-        "project_id": fields.String(required=True, description="The project the notification relates to"),
-        "chat_id": fields.String(required=False, description="The conversation id of the notification (question + reply). If the notification is not a chat, this is None"),
-        "commenter_id": fields.String(required=False, description="The id of the commenter. If the notification is not a chat, this is None"),
+        "project_id": fields.String(
+            required=True, description="The project the notification relates to"
+        ),
+        "chat_id": fields.String(
+            required=False,
+            description="The conversation id of the notification (question + reply). If the notification is not a chat, this is None",
+        ),
+        "commenter_id": fields.String(
+            required=False,
+            description="The id of the commenter. If the notification is not a chat, this is None",
+        ),
     },
 )
 

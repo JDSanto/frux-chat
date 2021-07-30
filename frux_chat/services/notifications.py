@@ -9,11 +9,15 @@ from exponent_server_sdk import (
 from frux_chat.services.database import database
 
 
-def notify_device(token, title='', body='New event!', notification_data={}):
+def notify_device(token, title='', body='New event!', notification_data=None):
     # TODO: Logging
     print(f'NEW MESSAGE -- {token} -- {title} -- {body}')
+    if not notification_data:
+        notification_data = {}
     try:
-        PushClient().publish(PushMessage(to=token, title=title, body=body, data=notification_data))
+        PushClient().publish(
+            PushMessage(to=token, title=title, body=body, data=notification_data)
+        )
     except (ValueError, DeviceNotRegisteredError, PushServerError, PushTicketError):
         pass
 
@@ -27,7 +31,7 @@ def notify_tag(tag, project_id, params):
     # TODO: Bulk notifications/inserts
     title, body = TAG_MAPPER[tag](params)
     users = database.get_subscriptions_users(set_tag_and_project(tag, project_id))
-    notification_data = {'project_id':project_id}
+    notification_data = {'project_id': project_id}
     for user in users:
         notify_device(user['token'], title, body, notification_data)
         database.insert_notification(user['_id'], title, body, project_id)
@@ -40,6 +44,7 @@ def notify_tag(tag, project_id, params):
 # NewSeer_creator -> Se asigno un veedor a tu proyecto
 # NewSeer_seer -> Se te asigno un proyecto para que seas el seer
 # ChangeStateNotification -> El proyecto entro en funding, el proyecto entro en inprogress, el proyecto se completo
+
 
 def new_seeder(data):
     project = data['project']
@@ -57,7 +62,6 @@ def change_state(data):
     if state == "COMPLETE":
         body = f'{project} has finished development!'
     return ('New progress!', body)
-
 
 
 def new_stage_non_creator(data):
@@ -129,7 +133,5 @@ ROLE_MAPPER = {
         'NewSeer_seer',
         'ChangeStateNotification',
     ],
-    'ProjectSeeder': [
-        'NewStageNotification_noncreator',
-    ],
+    'ProjectSeeder': ['NewStageNotification_noncreator'],
 }

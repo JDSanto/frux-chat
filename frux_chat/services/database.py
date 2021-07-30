@@ -26,7 +26,9 @@ class Database:
     def get_user(self, user_id):
         return self.db.users.find_one({'_id': user_id})
 
-    def insert_notification(self, user_id, title, body, project_id = None, chat_id = None, commenter_id = None):
+    def insert_notification(
+        self, user_id, title, body, project_id=None, chat_id=None, commenter_id=None
+    ):
         '''
         Inserts a notification for the given user, with the current timestamp
         '''
@@ -52,7 +54,11 @@ class Database:
         '''
         Returns all the messages for a given project
         '''
-        return list(self.db.notifications.find({'project_id': project_id, 'chat_id': { "$ne" : None }}, {'_id': False}))
+        return list(
+            self.db.notifications.find(
+                {'project_id': project_id, 'chat_id': {"$ne": None}}, {'_id': False}
+            )
+        )
 
     def get_subscriptions_users(self, tag):
         '''
