@@ -59,23 +59,6 @@ def change_state(data):
     return ('New progress!', body)
 
 
-def finish_stage_non_creator(data):
-    project = data['project']
-    stage_number = data['stage_number']
-    return (
-        'Stage finished!',
-        f'{project} has finished developing their Stage #{stage_number}!',
-    )
-
-
-def finish_stage_seer(data):
-    project = data['project']
-    stage_number = data['stage_number']
-    return (
-        'Stage finished!',
-        f'{project} has finished developing their Stage #{stage_number}! Check if everything is in place!',
-    )
-
 
 def new_stage_non_creator(data):
     project = data['project']
@@ -126,10 +109,10 @@ TAG_MAPPER = {
 #   - Que notificaciones recibe? ChangeStateNotification,
 # ProjectSeer
 #   - Quien se suscribe? el veedor de un proyecto
-#   - Que notificaciones recibe? NewSeederNotification, NewSeer_seer, ChangeStateNotification, FinishStageNotification_seeder,
+#   - Que notificaciones recibe? NewSeederNotification, NewSeer_seer, ChangeStateNotification
 # ProjectSeeder
 #   - Quien se suscribe? los que invirtieron en el proyecto
-#   - Que notificaciones recibe? NewStageNotification_noncreator, FinishStageNotification_noncreator,
+#   - Que notificaciones recibe? NewStageNotification_noncreator
 # El chat NO se maneja por suscripciones
 
 
@@ -145,10 +128,8 @@ ROLE_MAPPER = {
         'NewSeederNotification',
         'NewSeer_seer',
         'ChangeStateNotification',
-        'FinishStageNotification_seeder',
     ],
     'ProjectSeeder': [
         'NewStageNotification_noncreator',
-        'FinishStageNotification_noncreator',
     ],
 }
